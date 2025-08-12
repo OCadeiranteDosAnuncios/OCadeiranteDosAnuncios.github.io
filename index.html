@@ -402,12 +402,12 @@
                         const imageUrl = `data:image/png;base64,${result.image}`;
                         imageOutput.innerHTML = `<img src="${imageUrl}" alt="Imagem gerada por IA" class="rounded-lg shadow-md max-w-full h-auto">`;
                     } else {
-                        imageOutput.innerText = "Desculpe, não consegui gerar a imagem. Tente novamente.";
+                        outputElement.innerText = "Desculpe, não consegui gerar a imagem. Tente novamente.";
                     }
                 } catch (error) {
-                    imageOutput.innerText = `Erro: ${error.message}`;
+                    outputElement.innerText = `Erro: ${error.message}`;
                 } finally {
-                    imageLoading.classList.add('hidden');
+                    loadingElement.classList.add('hidden');
                 }
             };
 
