@@ -1,1 +1,460 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Everton | O Cadeirante Dos Anúncios</title>
+    <!-- Inclui o Tailwind CSS via CDN. É a única dependência externa. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inclui o Font Awesome para os ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Estilos personalizados para a foto de perfil */
+        .profile-photo {
+            object-fit: cover;
+            object-position: center;
+        }
 
+        /* Animação para o card de serviço */
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animação para a seção de cases */
+        .case-item {
+            transition: all 0.3s ease;
+        }
+        
+        /* Paleta de Cores Personalizada para o projeto */
+        :root {
+            --color-primary: #1C442A;
+            --color-accent: #FF8C31;
+        }
+        .bg-primary { background-color: var(--color-primary); }
+        .text-primary { color: var(--color-primary); }
+        .border-primary { border-color: var(--color-primary); }
+        .bg-accent { background-color: var(--color-accent); }
+        .text-accent { color: var(--color-accent); }
+        .hover\:bg-accent:hover { background-color: var(--color-accent); }
+        .bg-primary\/10 { background-color: rgba(28, 68, 42, 0.1); }
+        
+        /* Estilos para o conteúdo gerado em Markdown */
+        .markdown-content h2, .markdown-content h3 { font-weight: bold; margin-top: 1rem; margin-bottom: 0.5rem; }
+        .markdown-content h2 { font-size: 1.5rem; }
+        .markdown-content h3 { font-size: 1.25rem; }
+        .markdown-content ul, .markdown-content ol { list-style-type: disc; padding-left: 1.5rem; }
+        .markdown-content li { margin-bottom: 0.25rem; }
+        .markdown-content strong { font-weight: bold; }
+
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+    <!-- Seção de Rastreamento (invisível para o usuário) -->
+    <!-- CRÍTICO: Use este espaço para adicionar seus códigos de rastreamento. -->
+    <!-- Mantenha os comentários para se organizar. -->
+    <div style="display: none;">
+        <!-- Pixel do Meta (Meta Ads) - Cole o código aqui dentro. -->
+        <!-- Exemplo:
+        <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', 'SEU_ID_DO_PIXEL');
+        fbq('track', 'PageView');
+        </script>
+        <noscript><img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=SEU_ID_DO_PIXEL&ev=PageView&noscript=1"
+        /></noscript>
+        -->
+
+        <!-- Google Analytics (GA4) - Cole o código aqui dentro. -->
+        <!-- Exemplo:
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-SEU_ID_DO_GA4"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SEU_ID_DO_GA4');
+        </script>
+        -->
+    </div>
+
+    <!-- Header (Topo da Página) -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto p-4 flex justify-between items-center">
+            <!-- Seu Nome / Título -->
+            <h1 class="text-2xl font-bold text-primary">Everton | O Cadeirante Dos Anúncios</h1>
+            <!-- Links para Redes Sociais e Contato -->
+            <nav class="flex items-center space-x-4">
+                <a href="https://www.instagram.com/evertonmqr" target="_blank" class="text-gray-600 hover:text-accent transition-colors duration-200" aria-label="Instagram">
+                    <!-- Ícone do Instagram -->
+                    <i class="fab fa-instagram text-2xl"></i>
+                </a>
+                <a href="https://api.whatsapp.com/send?phone=5531991565724&text=Ol%C3%A1.%20%0APosso%20saber%20mais%20sobre%20seu%20trabalho?" target="_blank" class="text-gray-600 hover:text-accent transition-colors duration-200" aria-label="WhatsApp">
+                    <!-- Ícone do WhatsApp -->
+                    <i class="fab fa-whatsapp text-2xl"></i>
+                </a>
+                <!-- Botão de CTA Principal -->
+                <a href="#contato" class="bg-primary text-white px-4 py-2 rounded-full font-semibold hover:bg-accent transition-colors duration-200">
+                    Fale Comigo
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Seção Principal com Foto e Frase de Impacto -->
+    <main class="container mx-auto mt-10 p-6 md:p-12 flex flex-col md:flex-row items-center gap-10 min-h-screen">
+        <!-- Conteúdo de Texto com a história -->
+        <div class="md:w-1/2 text-center md:text-left">
+            <!-- Título que Destaca seu Diferencial -->
+            <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
+                Anúncios chatos? Muitos os fazem. Mas os meus transformam cliques em <span class="text-accent">resultados reais</span>.
+            </h2>
+            <!-- Parágrafo de Introdução -->
+            <p class="mt-4 text-lg text-gray-600 max-w-lg mx-auto md:mx-0">
+                Olá! Sou Everton e estou aqui para desmistificar o tráfego pago. Minha paixão é entender o seu negócio e, em colaboração, levar sua mensagem até a pessoa certa, no momento exato. Transformo a complexidade dos anúncios em uma estratégia clara e eficaz para o seu crescimento.
+            </p>
+        </div>
+        <!-- Espaço para Foto Profissional -->
+        <div class="md:w-1/2 flex justify-center md:justify-end">
+            <!-- Link direto da sua foto -->
+            <img src="https://i.imgur.com/LhhqvPL.png" alt="Foto profissional de Everton" class="w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-primary shadow-xl profile-photo">
+        </div>
+    </main>
+
+    <!-- Seção de Serviços -->
+    <section class="bg-gray-100 py-16" id="servicos">
+        <div class="container mx-auto p-6 text-center">
+            <h2 class="text-3xl font-bold text-gray-900">Como Podemos Trabalhar Juntos</h2>
+            <p class="mt-4 text-lg text-gray-600">Minha abordagem é baseada em parceria e resultados.</p>
+            <div class="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Card de Serviço 1: Estratégia -->
+                <div class="service-card bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 flex flex-col items-center">
+                    <div class="text-primary mb-4 mx-auto w-12 h-12 flex items-center justify-center rounded-full bg-primary/10">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mt-4">Estratégia de Tráfego</h3>
+                    <p class="mt-2 text-gray-600">Desenvolvimento de planos personalizados para alcançar seus objetivos de negócio.</p>
+                </div>
+                
+                <!-- Card de Serviço 2: Gestão de Campanhas -->
+                <div class="service-card bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 flex flex-col items-center">
+                    <div class="text-primary mb-4 mx-auto w-12 h-12 flex items-center justify-center rounded-full bg-primary/10">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M10 12h.01" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mt-4">Gestão de Anúncios</h3>
+                    <p class="mt-2 text-gray-600">Criação, monitoramento e otimização de campanhas no Meta Ads e Google Ads.</p>
+                </div>
+
+                <!-- Card de Serviço 3: Análise e Otimização -->
+                <div class="service-card bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 flex flex-col items-center">
+                    <div class="text-primary mb-4 mx-auto w-12 h-12 flex items-center justify-center rounded-full bg-primary/10">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16 8v8m-4-8v8m-4-8v8M4 16h16" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mt-4">Análise de Métricas</h3>
+                    <p class="mt-2 text-gray-600">Acompanhamento de dados para garantir que cada centavo investido traga o melhor retorno.</p>
+                </div>
+
+                <!-- Card de Serviço 4: Tráfego para Lançamentos -->
+                <div class="service-card bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 flex flex-col items-center">
+                    <div class="text-primary mb-4 mx-auto w-12 h-12 flex items-center justify-center rounded-full bg-primary/10">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                            <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.825-4.998 12.074 12.074 0 01.665-6.479L12 14z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 14v10.153a2.986 2.986 0 002.5-3.033A2.986 2.986 0 0012 14z" />
+                        </svg>
+                    </div>
+                    <h3 class-="text-xl font-bold mt-4">Lançamentos de Produtos</h3>
+                    <p class="mt-2 text-gray-600">Construção de funis de venda e campanhas de tráfego para eventos e lançamentos digitais e presenciais.</p>
+                </div>
+            </div>
+            <!-- Botão de CTA para Orçamento -->
+            <div class="mt-12">
+                <a href="https://api.whatsapp.com/send?phone=5531991565724&text=Ol%C3%A1.%20%0APosso%20saber%20mais%20sobre%20seu%20trabalho?" target="_blank" class="bg-primary text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-accent transition-colors duration-200">
+                    Quero um Orçamento
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Cases de Sucesso (com visual mais dinâmico) -->
+    <section class="py-16">
+        <div class="container mx-auto p-6 text-center">
+            <h2 class="text-3xl font-bold text-gray-900">Resultados que Geram Confiança</h2>
+            <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+                Ao longo da minha trajetória, tive a oportunidade de trabalhar com empresas do setor da construção civil, implementando estratégias de tráfego pago que trouxeram resultados significativos.
+            </p>
+            
+            <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Case Item 1 -->
+                <div class="case-item bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+                    <div class="text-primary mb-4 mx-auto w-12 h-12 flex items-center justify-center rounded-full bg-primary/10">
+                        <!-- Ícone de Gráfico -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 12l2-2 2 2 2-2 2 2M12 16h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mt-4">Crescimento Exponencial</h3>
+                    <p class="mt-2 text-gray-600">Para uma empresa, conseguimos multiplicar a base de seguidores por <strong>quase 5x</strong> em um período de 15 meses.</p>
+                </div>
+
+                <!-- Case Item 2 -->
+                <div class="case-item bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+                    <div class="text-primary mb-4 mx-auto w-12 h-12 flex items-center justify-center rounded-full bg-primary/10">
+                        <!-- Ícone de Alvo -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mt-4">Fortalecimento da Marca</h3>
+                    <p class="mt-2 text-gray-600">Em outro projeto, geramos um crescimento de <strong>247%</strong> da base de seguidores em 14 meses, fortalecendo a presença digital da marca e divulgando seus produtos.</p>
+                </div>
+
+                <!-- Case Item 3 -->
+                <div class="case-item bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+                    <div class="text-primary mb-4 mx-auto w-12 h-12 flex items-center justify-center rounded-full bg-primary/10">
+                        <!-- Ícone de Foguete -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6a2.25 2.25 0 00-4.5 0v4.5M12 18h.008v.008H12V18zM12 9.75a2.25 2.25 0 012.25 2.25v.75m0 2.25v.75m0 2.25V21.75M12 13.5v1.5m0 0v3.75" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mt-4">Lançamentos de Alto Valor</h3>
+                    <p class="mt-2 text-gray-600">Minha atuação incluiu a gestão de tráfego para <strong>lançamentos de alta performance</strong>, onde os anúncios foram peças-chave para o sucesso de vendas e a geração de leads qualificados de produtos de alto valor, como licenças avaliadas em cerca de <strong>R$ 2,5 milhões</strong>.</p>
+                </div>
+
+                <!-- Case Item 4 -->
+                <div class="case-item bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+                    <div class="text-primary mb-4 mx-auto w-12 h-12 flex items-center justify-center rounded-full bg-primary/10">
+                        <!-- Ícone de Gráfico de Barras -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11 3.5L5 9.5l6 6M11 12v6m6-6l-2-2-2 2-2-2M12 16h.01M17 18v2M7 18v2" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mt-4">Crescimento de Audiência</h3>
+                    <p class="mt-2 text-gray-600">Para uma plataforma de treinamentos e eventos, multiplicamos a base de seguidores por <strong>quase 4x</strong> em cerca de 9 meses, o que representa um crescimento de <strong>quase 300%</strong>.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Nova Seção: Ferramentas para Clientes -->
+    <section class="bg-gray-100 py-16">
+        <div class="container mx-auto p-6 text-center">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Ferramentas para Clientes 🛠️</h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                Use a inteligência artificial para simular soluções e agilizar o planejamento da sua estratégia.
+            </p>
+            
+            <div class="mt-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Card para o Consultor de Plataformas -->
+                <div class="bg-white p-8 rounded-lg shadow-md flex flex-col items-center">
+                    <h3 class="text-xl font-bold text-primary mb-4">Consultor de Plataformas</h3>
+                    <p class="text-gray-600 mb-4">Descreva seu negócio e objetivo para saber qual plataforma de anúncios é a ideal para você.</p>
+                    <textarea id="consultor-input" class="w-full h-32 p-4 mb-4 border border-gray-300 rounded-md resize-none" placeholder="Ex: 'Sou dono de uma loja de roupas femininas e quero aumentar minhas vendas online.'"></textarea>
+                    <button id="consultor-button" class="bg-primary text-white px-6 py-3 rounded-full font-semibold hover:bg-accent transition-colors duration-200">
+                        Consultar
+                    </button>
+                    <div id="consultor-output" class="w-full mt-6 text-left p-4 bg-gray-50 border border-gray-200 rounded-md min-h-[150px] overflow-auto markdown-content">
+                        <p class="text-gray-400">A análise será exibida aqui...</p>
+                    </div>
+                    <div id="consultor-loading" class="mt-4 hidden">
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                    </div>
+                </div>
+
+                <!-- Card para o Gerador de Imagens -->
+                <div class="bg-white p-8 rounded-lg shadow-md flex flex-col items-center">
+                    <h3 class="text-xl font-bold text-primary mb-4">Gerador de Imagens</h3>
+                    <p class="text-gray-600 mb-4">Crie um prompt para gerar um criativo de anúncio em segundos.</p>
+                    <textarea id="image-input" class="w-full h-32 p-4 mb-4 border border-gray-300 rounded-md resize-none" placeholder="Ex: 'Uma mulher sorrindo em uma loja de roupas com fundo desfocado.'"></textarea>
+                    <button id="image-button" class="bg-primary text-white px-6 py-3 rounded-full font-semibold hover:bg-accent transition-colors duration-200">
+                        Gerar Imagem
+                    </button>
+                    <div id="image-output" class="w-full mt-6 text-center">
+                        <p class="text-gray-400">A imagem será exibida aqui...</p>
+                    </div>
+                    <div id="image-loading" class="mt-4 hidden">
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                    </div>
+                </div>
+                
+                <!-- Card para o Analisador de Perfil do Google -->
+                <div class="bg-white p-8 rounded-lg shadow-md flex flex-col items-center">
+                    <h3 class="text-xl font-bold text-primary mb-4">Analisador de Perfil do Google</h3>
+                    <p class="text-gray-600 mb-4">A partir de uma descrição, nossa IA simula como o Google ranquearia seu perfil nas buscas. Foco em autoridade e palavras-chave. </p>
+                    <textarea id="instagram-input" class="w-full h-32 p-4 mb-4 border border-gray-300 rounded-md resize-none" placeholder="Ex: 'Perfil de uma loja de doces e salgados para eventos, com foco na cidade de Belo Horizonte.'"></textarea>
+                    <button id="instagram-button" class="bg-primary text-white px-6 py-3 rounded-full font-semibold hover:bg-accent transition-colors duration-200">
+                        Analisar
+                    </button>
+                    <div id="instagram-output" class="w-full mt-6 text-left p-4 bg-gray-50 border border-gray-200 rounded-md min-h-[150px] overflow-auto markdown-content">
+                        <p class="text-gray-400">A análise simulada será exibida aqui...</p>
+                    </div>
+                    <div id="instagram-loading" class="mt-4 hidden">
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Contato -->
+    <footer id="contato" class="bg-primary text-gray-300 py-10">
+        <div class="container mx-auto text-center p-6">
+            <h2 class="text-3xl font-bold text-white mb-4">Pronto para Transformar Cliques em Clientes?</h2>
+            <p class="mb-8 max-w-xl mx-auto">
+                Vamos conversar sobre o seu negócio e criar uma estratégia de anúncios que realmente traga resultados. Clique no botão abaixo para agendar uma consulta.
+            </p>
+            <a href="https://api.whatsapp.com/send?phone=5531991565724&text=Ol%C3%A1.%20%0APosso%20saber%20mais%20sobre%20seu%20trabalho?" target="_blank" class="bg-accent text-primary px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-colors duration-200 shadow-lg">
+                Fale Comigo no WhatsApp
+            </a>
+
+            <div class="flex justify-center space-x-4 mt-8">
+                <a href="https://www.instagram.com/evertonmqr" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-200">Instagram</a>
+            </div>
+            <p class="mt-8 text-gray-500">© 2025 Everton. Todos os direitos reservados.</p>
+            <div class="mt-4">
+                <a href="politica-de-privacidade.html" class="text-gray-400 hover:text-white transition-colors duration-200">Política de Privacidade</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script para as funcionalidades do Gemini API -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // A chave da API não é mais necessária no frontend, pois será usada na função do Netlify
+            // const API_KEY = ""; 
+            const TEXT_FUNCTION_URL = '/.netlify/functions/generate-text';
+            const IMAGE_FUNCTION_URL = '/.netlify/functions/generate-image';
+
+            // Consultor de Plataformas
+            const consultorInput = document.getElementById('consultor-input');
+            const consultorButton = document.getElementById('consultor-button');
+            const consultorOutput = document.getElementById('consultor-output');
+            const consultorLoading = document.getElementById('consultor-loading');
+
+            // Gerador de Imagens
+            const imageInput = document.getElementById('image-input');
+            const imageButton = document.getElementById('image-button');
+            const imageOutput = document.getElementById('image-output');
+            const imageLoading = document.getElementById('image-loading');
+            
+            // Analisador de Perfil do Google
+            const instagramInput = document.getElementById('instagram-input');
+            const instagramButton = document.getElementById('instagram-button');
+            const instagramOutput = document.getElementById('instagram-output');
+            const instagramLoading = document.getElementById('instagram-loading');
+
+            // Função genérica para chamar a função de texto do Netlify
+            const callNetlifyTextFunction = async (prompt, outputElement, loadingElement) => {
+                outputElement.innerHTML = '';
+                loadingElement.classList.remove('hidden');
+
+                try {
+                    const response = await fetch(TEXT_FUNCTION_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ prompt: prompt })
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`Erro na API: ${response.statusText}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    if (result.text) {
+                        outputElement.innerHTML = marked.parse(result.text);
+                    } else {
+                        outputElement.innerText = "Desculpe, não consegui gerar o conteúdo. Tente novamente.";
+                    }
+
+                } catch (error) {
+                    outputElement.innerText = `Erro: ${error.message}`;
+                } finally {
+                    loadingElement.classList.add('hidden');
+                }
+            };
+            
+            // Função para chamar a função de imagem do Netlify
+            const callNetlifyImageFunction = async (prompt) => {
+                imageOutput.innerHTML = '';
+                imageLoading.classList.remove('hidden');
+                
+                try {
+                    const response = await fetch(IMAGE_FUNCTION_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ prompt: prompt })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`Erro na API: ${response.statusText}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    if (result.image) {
+                        const imageUrl = `data:image/png;base64,${result.image}`;
+                        imageOutput.innerHTML = `<img src="${imageUrl}" alt="Imagem gerada por IA" class="rounded-lg shadow-md max-w-full h-auto">`;
+                    } else {
+                        outputElement.innerText = "Desculpe, não consegui gerar a imagem. Tente novamente.";
+                    }
+                } catch (error) {
+                    outputElement.innerText = `Erro: ${error.message}`;
+                } finally {
+                    loadingElement.classList.add('hidden');
+                }
+            };
+
+            // Event listener para o Consultor de Plataformas
+            consultorButton.addEventListener('click', () => {
+                const topic = consultorInput.value.trim();
+                if (topic) {
+                    const prompt = `Analise o seguinte cenário e determine se a melhor plataforma para anúncios seria Google Ads ou Meta Ads, e por quê. O objetivo é ajudar um cliente a tomar uma decisão informada. Cenário: "${topic}". Responda em português de forma clara e objetiva.`;
+                    callNetlifyTextFunction(prompt, consultorOutput, consultorLoading);
+                } else {
+                    consultorOutput.innerText = "Por favor, descreva o seu negócio e objetivos.";
+                }
+            });
+
+            // Event listener para o Gerador de Imagens
+            imageButton.addEventListener('click', () => {
+                const prompt = imageInput.value.trim();
+                if (prompt) {
+                    callNetlifyImageFunction(prompt);
+                } else {
+                    imageOutput.innerText = "Por favor, digite uma descrição para gerar a imagem.";
+                }
+            });
+
+            // Event listener para o Analisador de Instagram
+            instagramButton.addEventListener('click', () => {
+                const description = instagramInput.value.trim();
+                if (description) {
+                    const prompt = `Agindo como um especialista em SEO e ranqueamento no Google para perfis do Instagram, analise a seguinte descrição de perfil e forneça 3 sugestões de melhoria para que o perfil seja encontrado com mais facilidade nas buscas do Google. A descrição do perfil é: "${description}". Foco em palavras-chave relevantes, autoridade do domínio e links externos. Responda em português de forma clara e profissional.`;
+                    callNetlifyTextFunction(prompt, instagramOutput, instagramLoading);
+                } else {
+                    instagramOutput.innerText = "Por favor, descreva o perfil para a análise.";
+                }
+            });
+        });
+    </script>
+</body>
+</html>
