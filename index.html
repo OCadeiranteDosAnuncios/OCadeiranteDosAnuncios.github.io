@@ -203,7 +203,7 @@
                         </svg>
                     </div>
                     <h3 class="text-xl font-bold mt-4">Crescimento Exponencial</h3>
-                    <p class="mt-2 text-gray-600">Para uma empresa, conseguimos multiplicar a base de seguidores por **quase 5x** em um período de 15 meses.</p>
+                    <p class="mt-2 text-gray-600">Para uma empresa, conseguimos multiplicar a base de seguidores por <strong>quase 5x</strong> em um período de 15 meses.</p>
                 </div>
 
                 <!-- Case Item 2 -->
@@ -215,7 +215,7 @@
                         </svg>
                     </div>
                     <h3 class="text-xl font-bold mt-4">Fortalecimento da Marca</h3>
-                    <p class="mt-2 text-gray-600">Em outro projeto, geramos um crescimento de **247%** da base de seguidores em 14 meses, fortalecendo a presença digital da marca e divulgando seus produtos.</p>
+                    <p class="mt-2 text-gray-600">Em outro projeto, geramos um crescimento de <strong>247%</strong> da base de seguidores em 14 meses, fortalecendo a presença digital da marca e divulgando seus produtos.</p>
                 </div>
 
                 <!-- Case Item 3 -->
@@ -227,7 +227,7 @@
                         </svg>
                     </div>
                     <h3 class="text-xl font-bold mt-4">Lançamentos de Alto Valor</h3>
-                    <p class="mt-2 text-gray-600">Minha atuação incluiu a gestão de tráfego para **lançamentos de alta performance**, onde os anúncios foram peças-chave para o sucesso de vendas e a geração de leads qualificados de produtos de alto valor, como licenças avaliadas em cerca de **R$ 2,5 milhões**.</p>
+                    <p class="mt-2 text-gray-600">Minha atuação incluiu a gestão de tráfego para <strong>lançamentos de alta performance</strong>, onde os anúncios foram peças-chave para o sucesso de vendas e a geração de leads qualificados de produtos de alto valor, como licenças avaliadas em cerca de <strong>R$ 2,5 milhões</strong>.</p>
                 </div>
 
                 <!-- Case Item 4 -->
@@ -239,7 +239,7 @@
                         </svg>
                     </div>
                     <h3 class="text-xl font-bold mt-4">Crescimento de Audiência</h3>
-                    <p class="mt-2 text-gray-600">Para uma plataforma de treinamentos e eventos, multiplicamos a base de seguidores por **quase 4x** em cerca de 9 meses, o que representa um crescimento de **quase 300%**.</p>
+                    <p class="mt-2 text-gray-600">Para uma plataforma de treinamentos e eventos, multiplicamos a base de seguidores por <strong>quase 4x</strong> em cerca de 9 meses, o que representa um crescimento de <strong>quase 300%</strong>.</p>
                 </div>
             </div>
         </div>
@@ -319,16 +319,20 @@
             <div class="flex justify-center space-x-4 mt-8">
                 <a href="https://www.instagram.com/evertonmqr" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-200">Instagram</a>
             </div>
-            <p class="mt-8 text-gray-500">&copy; 2025 Everton. Todos os direitos reservados.</p>
+            <p class="mt-8 text-gray-500">© 2025 Everton. Todos os direitos reservados.</p>
+            <div class="mt-4">
+                <a href="politica-de-privacidade.html" class="text-gray-400 hover:text-white transition-colors duration-200">Política de Privacidade</a>
+            </div>
         </div>
     </footer>
 
     <!-- Script para as funcionalidades do Gemini API -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const API_KEY = "";
-            const TEXT_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${API_KEY}`;
-            const IMAGE_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${API_KEY}`;
+            // A chave da API não é mais necessária no frontend, pois será usada na função do Netlify
+            // const API_KEY = ""; 
+            const TEXT_FUNCTION_URL = '/.netlify/functions/generate-text';
+            const IMAGE_FUNCTION_URL = '/.netlify/functions/generate-image';
 
             // Consultor de Plataformas
             const consultorInput = document.getElementById('consultor-input');
@@ -342,38 +346,32 @@
             const imageOutput = document.getElementById('image-output');
             const imageLoading = document.getElementById('image-loading');
             
-            // Analisador de Instagram
+            // Analisador de Perfil do Google
             const instagramInput = document.getElementById('instagram-input');
             const instagramButton = document.getElementById('instagram-button');
             const instagramOutput = document.getElementById('instagram-output');
             const instagramLoading = document.getElementById('instagram-loading');
 
-            // Função genérica para chamar a API de texto
-            const callGeminiTextAPI = async (prompt, outputElement, loadingElement) => {
+            // Função genérica para chamar a função de texto do Netlify
+            const callNetlifyTextFunction = async (prompt, outputElement, loadingElement) => {
                 outputElement.innerHTML = '';
                 loadingElement.classList.remove('hidden');
 
                 try {
-                    const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
-                    const payload = { contents: chatHistory };
-
-                    let response = await fetch(TEXT_API_URL, {
+                    const response = await fetch(TEXT_FUNCTION_URL, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
+                        body: JSON.stringify({ prompt: prompt })
                     });
-
+                    
                     if (!response.ok) {
                         throw new Error(`Erro na API: ${response.statusText}`);
                     }
 
                     const result = await response.json();
                     
-                    if (result.candidates && result.candidates.length > 0 && 
-                        result.candidates[0].content && result.candidates[0].content.parts &&
-                        result.candidates[0].content.parts.length > 0) {
-                        const text = result.candidates[0].content.parts[0].text;
-                        outputElement.innerHTML = text.replace(/\n/g, '<br>');
+                    if (result.text) {
+                        outputElement.innerHTML = result.text.replace(/\n/g, '<br>');
                     } else {
                         outputElement.innerText = "Desculpe, não consegui gerar o conteúdo. Tente novamente.";
                     }
@@ -385,17 +383,16 @@
                 }
             };
             
-            // Função para chamar a API de imagem
-            const callGeminiImageAPI = async (prompt) => {
+            // Função para chamar a função de imagem do Netlify
+            const callNetlifyImageFunction = async (prompt) => {
                 imageOutput.innerHTML = '';
                 imageLoading.classList.remove('hidden');
                 
                 try {
-                    const payload = { instances: [{ prompt: prompt }], parameters: { "sampleCount": 1} };
-                    let response = await fetch(IMAGE_API_URL, {
+                    const response = await fetch(IMAGE_FUNCTION_URL, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
+                        body: JSON.stringify({ prompt: prompt })
                     });
 
                     if (!response.ok) {
@@ -403,10 +400,9 @@
                     }
 
                     const result = await response.json();
-                    const base64Data = result?.predictions?.[0]?.bytesBase64Encoded;
                     
-                    if (base64Data) {
-                        const imageUrl = `data:image/png;base64,${base64Data}`;
+                    if (result.image) {
+                        const imageUrl = `data:image/png;base64,${result.image}`;
                         imageOutput.innerHTML = `<img src="${imageUrl}" alt="Imagem gerada por IA" class="rounded-lg shadow-md max-w-full h-auto">`;
                     } else {
                         imageOutput.innerText = "Desculpe, não consegui gerar a imagem. Tente novamente.";
@@ -414,7 +410,7 @@
                 } catch (error) {
                     imageOutput.innerText = `Erro: ${error.message}`;
                 } finally {
-                    imageLoading.classList.add('hidden');
+                    loadingElement.classList.add('hidden');
                 }
             };
 
@@ -423,7 +419,7 @@
                 const topic = consultorInput.value.trim();
                 if (topic) {
                     const prompt = `Analise o seguinte cenário e determine se a melhor plataforma para anúncios seria Google Ads ou Meta Ads, e por quê. O objetivo é ajudar um cliente a tomar uma decisão informada. Cenário: "${topic}". Responda em português de forma clara e objetiva.`;
-                    callGeminiTextAPI(prompt, consultorOutput, consultorLoading);
+                    callNetlifyTextFunction(prompt, consultorOutput, consultorLoading);
                 } else {
                     consultorOutput.innerText = "Por favor, descreva o seu negócio e objetivos.";
                 }
@@ -433,7 +429,7 @@
             imageButton.addEventListener('click', () => {
                 const prompt = imageInput.value.trim();
                 if (prompt) {
-                    callGeminiImageAPI(prompt);
+                    callNetlifyImageFunction(prompt);
                 } else {
                     imageOutput.innerText = "Por favor, digite uma descrição para gerar a imagem.";
                 }
@@ -444,13 +440,12 @@
                 const description = instagramInput.value.trim();
                 if (description) {
                     const prompt = `Agindo como um especialista em SEO e ranqueamento no Google para perfis do Instagram, analise a seguinte descrição de perfil e forneça 3 sugestões de melhoria para que o perfil seja encontrado com mais facilidade nas buscas do Google. A descrição do perfil é: "${description}". Foco em palavras-chave relevantes, autoridade do domínio e links externos. Responda em português de forma clara e profissional.`;
-                    callGeminiTextAPI(prompt, instagramOutput, instagramLoading);
+                    callNetlifyTextFunction(prompt, instagramOutput, instagramLoading);
                 } else {
                     instagramOutput.innerText = "Por favor, descreva o perfil para a análise.";
                 }
             });
         });
     </script>
-
 </body>
 </html>
